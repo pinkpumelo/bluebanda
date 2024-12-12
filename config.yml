@@ -1,0 +1,24 @@
+backend:
+  name: github
+  repo: pinkpumelo/bluebanda
+  branch: main
+
+media_folder: static/uploads
+public_folder: /uploads
+
+collections:
+  - name: music
+    label: Music
+    folder: content/music
+    create: true
+    fields:
+      - { name: type, label: Type (Album or Single), widget: select, options: ["Album", "Single"] }
+      - { name: title, label: Title, widget: string }
+      - { name: artwork, label: Artwork, widget: image }
+      - { name: songs, label: Songs, widget: list, fields: 
+          [
+            { name: song_title, label: Song Title, widget: string },
+            { name: audio_file, label: Audio File, widget: file }
+          ]
+        }
+      - { name: streaming_link, label: Streaming Link, widget: string }
