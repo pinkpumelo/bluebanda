@@ -36,7 +36,11 @@
       a:hover {
         text-decoration: underline;
       }
+      .hidden {
+        display: none;
+      }
     </style>
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   </head>
   <body>
     <header>
@@ -47,9 +51,47 @@
       <p>
         Want to manage your content? Visit the <a href="/admin/">Admin Panel</a>.
       </p>
+      <button id="login-button">Log in</button>
+      <button id="logout-button" class="hidden">Log out</button>
     </main>
     <footer>
       <p>&copy; 2024 Bluebanda. All rights reserved.</p>
     </footer>
+    <script>
+      // Initialize Netlify Identity Widget
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", (user) => {
+          const loginButton = document.getElementById("login-button");
+          const logoutButton = document.getElementById("logout-button");
+
+          if (user) {
+            loginButton.classList.add("hidden");
+            logoutButton.classList.remove("hidden");
+          } else {
+            loginButton.classList.remove("hidden");
+            logoutButton.classList.add("hidden");
+          }
+        });
+
+        window.netlifyIdentity.on("login", () => {
+          console.log("User logged in");
+          window.location.reload();
+        });
+
+        window.netlifyIdentity.on("logout", () => {
+          console.log("User logged out");
+          window.location.reload();
+        });
+      }
+
+      // Open Netlify Identity widget when login button is clicked
+      document.getElementById("login-button").addEventListener("click", () => {
+        window.netlifyIdentity.open();
+      });
+
+      document.getElementById("logout-button").addEventListener("click", () => {
+        window.netlifyIdentity.logout();
+      });
+    </script>
   </body>
 </html>
