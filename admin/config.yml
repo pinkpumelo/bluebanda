@@ -1,0 +1,21 @@
+backend:
+  name: github
+  repo: pinkpumelo/bluebanda
+  branch: main
+
+site_url: https://pinkpumelo.github.io/bluebanda
+
+media_folder: static/uploads
+public_folder: /uploads
+
+collections:
+  - name: blog
+    label: Blog
+    folder: content/blog
+    create: true
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: body, label: Body, widget: markdown }
+      - { name: image, label: Image, widget: image }
+      - { name: audio, label: Audio, widget: file }
+      - { name: link, label: Link, widget: string }
